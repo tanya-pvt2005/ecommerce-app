@@ -7,7 +7,7 @@ import ProductItem from "../components/ProductItem"
 const Collection = () => {
 
   //first we need data of all products
-  const {products} = useContext(ShopContext);
+  const {products, search, showSearch} = useContext(ShopContext);
   const [showFilter, setShowFilter] = useState(false)
   // for mapping filtered products in webpage
   const [filterPdts, setFilterPdts] = useState([])
@@ -49,8 +49,13 @@ const Collection = () => {
 
 
   //using category and subcategory variables => create one filter
+  // also Filter products based on search query
   const applyFilter = () =>{
     let productsCopy = products.slice()
+    if(showSearch && search){
+      //use search to filter pdts
+      productsCopy = productsCopy.filter(item=> item.name.toLowerCase().includes(search.toLowerCase()))
+    }
     if(category.length>0){
       //selected any category: added in category state
       productsCopy = productsCopy.filter(item=> category.includes(item.category))
@@ -62,12 +67,10 @@ const Collection = () => {
     setFilterPdts(productsCopy)
   }
 
-
-
   //useEffect for filter
   useEffect(()=>{
     applyFilter();
-  },[category, subCategory])
+  },[category, subCategory, search, showSearch])
 
 
   //Sorting Products
@@ -91,7 +94,13 @@ const Collection = () => {
     sortPdts()
   },[sortType])
 
+
+
+
+
+
   return (
+  
     <div className='flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t'>
 
       {/* filter options */}

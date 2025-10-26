@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { assets } from "../assets/frontend_assets/assets"
 import { useState } from 'react'
+import { ShopContext } from '../context/ShopContext'
 
 const Navbar = () => {
     //state var for sidebar
     const [visible, setVisible] = useState(false)
-
+    const {showSearch, setShowSearch} = useContext(ShopContext)
     return (
         <div>
             <div className='flex items-center justify-between py-5 font-medium'>
@@ -37,7 +38,7 @@ const Navbar = () => {
 
                 <div className='flex items-center gap-6'>
                     {/* search, profile, cart */}
-                    <img src={assets.search_icon} className='w-5 cursor-pointer'></img>
+                    <img src={assets.search_icon} className='w-5 cursor-pointer' onClick={()=>setShowSearch(!showSearch)}></img>
 
                     {/* group marks element as parent for group hover/ group focus-states. This is done for dropdown menu */}
                     <div className='group relative'>
