@@ -12,13 +12,14 @@ import Orders from './pages/Orders'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Searchbar from './components/Searchbar'
-
+import { ToastContainer, toast } from 'react-toastify';
 
 const App = () => {
   return (
     // It adds responsive left-right padding that increases with screen size — from fixed 16px on mobile to 5–9% of the viewport width on larger screens.
 
     <div className='px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
+      <ToastContainer />
       <Navbar/>
       <Searchbar/>
       <Routes>

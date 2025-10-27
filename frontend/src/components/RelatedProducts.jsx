@@ -13,13 +13,13 @@ const RelatedProducts = ({category, subCategory}) => {
         if(products.length>0){
             
             let pdtCopy = products.slice();
-            console.log(pdtCopy)
+            // console.log(pdtCopy)
 
             //filter pdtCopy
             pdtCopy = pdtCopy.filter((item)=>(category === item.category ))
-            console.log(pdtCopy)
+            // console.log(pdtCopy)
             pdtCopy = pdtCopy.filter((item)=>(subCategory === item.subCategory))
-            console.log(pdtCopy)
+            // console.log(pdtCopy)
 
             setRelated(pdtCopy.slice(0,5))
 
