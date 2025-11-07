@@ -11,7 +11,29 @@ const createToken = (id)=>{
 
 // User Login Route
 const loginUser = async(req, res) =>{
+     try{
+        console.log("Login attempt")
+        const {email, password} = req.body
+        const user = await userModel.findOne({email})
+        if(!user){
+            return res.json({success: false, message:"User does not exists"})
 
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password)
+
+        console.log(isMatch)
+        if(isMatch){
+            const token = createToken(user._id)
+            res.json({success:true, token})
+        }else{
+            res.json({success:false, message: 'Invalid Credentials'})
+        }
+
+    }catch(error){
+        console.log(error)
+        res.json({success:false, message:error.message})
+    }
 }
 
 // Register User route
@@ -58,7 +80,7 @@ const registerUser = async(req, res) =>{
 
 // admin login
 const adminLogin = async(req, res)=>{
-
+   
 }
 
 export {loginUser, registerUser, adminLogin}
